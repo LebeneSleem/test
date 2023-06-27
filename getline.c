@@ -1,43 +1,44 @@
 #include "shell.h"
 
-char* my_getline() {
-    static char* buffer = NULL;
-    static size_t buffer_size = 0;
-    static size_t chars_read = 0;
-    int c;
-     size_t i = 0;
+char* custom_getline() 
+{
+    static char* Buffer = NULL;
+    static size_t BUFFER_SIZE = 0;
+    static size_t input = 0;
+    int a;
+     size_t b = 0;
      char* new_buffer;
 
     /** If the buffer is empty, allocate a new one*/
-    if (buffer == NULL) {
-        buffer_size = 1024;
-        buffer = (char*) malloc(buffer_size);
-        if (buffer == NULL) {
+    if (Buffer == NULL) {
+        BUFFER_SIZE = 1024;
+        Buffer = (char*) malloc(BUFFER_SIZE);
+        if (Buffer == NULL) {
             return NULL;
         }
     }
 
     /*Read characters from standard input until a newline is found*/
    
-    while ((c = getchar()) != EOF && c != '\n') {
-        if (i == buffer_size - 1) {
-            buffer_size *= 2;
-            new_buffer = (char*) realloc(buffer, buffer_size);
+    while ((a = getchar()) != EOF && a != '\n') {
+        if (i == BUFFER_SIZE - 1) {
+            BUFFER_SIZE *= 2;
+            new_buffer = (char*) realloc(Buffer, BUFFER_SIZE);
             if (new_buffer == NULL) {
-                free(buffer);
+                free(Buffer);
                 return NULL;
             }
-            buffer = new_buffer;
+            Buffer = New_Buffer;
         }
-        buffer[i++] = c;
+        Buffer[b++] = a;
     }
 
-    if (c == EOF && i == 0) {
-        return NULL;
+    if (a == EOF && b == 0) {
+        return (NULL);
     }
 
-    buffer[i] = '\0';
-    chars_read += i;
+    Buffer[b] = '\0';
+    input += b;
 
-    return buffer;
+    return (Buffer);
 }

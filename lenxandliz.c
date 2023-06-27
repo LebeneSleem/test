@@ -2,10 +2,10 @@
 
 void command_prompt(char **env)
 {
-    char *lineptr = NULL;
+    char *input = NULL;
     /*size_t n = 0;
     ssize_t input;*/
-    int a;
+    int a = 0;
     char *argv[Max_Arguments];
 
     while (1)
@@ -14,23 +14,22 @@ void command_prompt(char **env)
         {
             write(STDOUT_FILENO, "simple_shell$  ", 15);
         }
-        lineptr = my_getline();
+        input = custom_getline();
         /***
         input = getline(&lineptr, &n, stdin);**/
-        if (/**input*/lineptr == NULL)
+        if (/**input*/input == NULL)
         {
-            free(lineptr);
+            free(input);
             exit(EXIT_FAILURE);
         }
-        a = 0;
-        while (lineptr[a])
+        while (input[a])
         {
-            if (lineptr[a] == '\n')
-                lineptr[a] = 0;
+            if (input[a] == '\n')
+                input[a] = 0;
             a++;
         }
-        handle_arguments(lineptr, argv);
+        handle_arguments(input, argv);
         exec_command(argv, env);
     }
-    free(lineptr);
+    free(input);
 }
